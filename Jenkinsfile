@@ -25,9 +25,28 @@ pipeline {
                     junit 'target/surefire-reports/*.xml'
                 }
             }
+            post 
+{
+    failure
+    {
+        mail to:'amitbarh26@gmail.com',
+        subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+        body: """Job '${env.JOB_NAME}' build #${env.BUILD_NUMBER} failed.
+        Check console output at ${env.BUILD_URL}console"""
+    }
+    success
+    {
+        mail to:'amitbarh26@gmail.com',
+        subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+        body: "Job '${env.JOB_NAME}' succeeded. ${env.BUILD_URL}"
+    }
+    }
+}
+            
         }
         stage('Post Build Notification') {
             // write your logic here
     }
     }
 }
+
