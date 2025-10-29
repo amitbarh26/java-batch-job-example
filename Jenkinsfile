@@ -8,6 +8,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 // write your logic here
+                git branch: 'main',
+                url: 'https://github.com/amitbarh26/java-batch-job-example.git'
             }
         }
         stage('Build') {
